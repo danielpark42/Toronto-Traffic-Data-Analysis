@@ -133,3 +133,15 @@ where time not like '0%'
 
 select count(time) as am_acc from ksi
 where time like '0%'
+
+
+SELECT EXTRACT(DOW FROM "date"),
+
+CASE
+	WHEN EXTRACT(DOW FROM "date") = 0 THEN 'Weekend'
+	WHEN EXTRACT(DOW FROM "date") = 6 THEN 'Weekend'
+	WHEN EXTRACT(DOW FROM "date") BETWEEN 1 AND 5 THEN 'Weekday'
+	ELSE 'ERROR'
+END
+
+FROM ksi;
