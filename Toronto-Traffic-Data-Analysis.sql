@@ -76,6 +76,46 @@ UPDATE ksi
 SET 
   	time_hour_min = TO_TIMESTAMP(SUBSTRING(TIME, 1, 2) || ':' || SUBSTRING(TIME, 3, 2), 'HH24:MI');
 
+-- Adding a new column to count the sum of vehicles involved in the accident
+ALTER TABLE ksi
+ADD Sum_of_Vehicles INT;
+
+UPDATE ksi
+SET
+	Sum_of_Vehicles = 
+		CASE WHEN pedestrian IS NOT NULL AND pedestrian != '' THEN 1 
+		ELSE 0 
+		END +
+	
+		CASE WHEN cyclist IS NOT NULL AND cyclist != '' THEN 1 
+		ELSE 0 
+		END +
+		
+		CASE WHEN automobile IS NOT NULL AND automobile != '' THEN 1 
+		ELSE 0 
+		END +
+		
+		CASE WHEN motorcycle IS NOT NULL AND motorcycle != '' THEN 1 
+		ELSE 0 
+		END +
+		
+		CASE WHEN truck IS NOT NULL AND truck != '' THEN 1 
+		ELSE 0 
+		END +
+		
+		CASE WHEN TRSN_CITY_VEH IS NOT NULL AND TRSN_CITY_VEH != '' THEN 1 
+		ELSE 0 
+		END +
+		
+		CASE WHEN EMERG_VEH IS NOT NULL AND EMERG_VEH != '' THEN 1 
+		ELSE 0 
+		END +
+		
+		CASE WHEN PASSENGER IS NOT NULL AND PASSENGER != '' THEN 1 
+		ELSE 0 
+		END
+		;
+
 
 --A pivot table showing the total number of accidents per year, grouped by the causes of the accidents and the vehicles/parties involved
 
@@ -95,7 +135,7 @@ SELECT DISTINCT date_year,
   SUM(speeding) AS Total_Speeding,
   SUM(fatal) AS Total_fatal,
   SUM(sum_of_causes) AS Total_Causes,
-  SUM(sum_of_involved) AS Total_Involved
+  SUM(sum_of_vehicles) AS Total_Involved
   
 FROM ksi
 GROUP BY date_year
@@ -110,14 +150,14 @@ SELECT DISTINCT date_year,
   100*SUM(redlight)/SUM(sum_of_causes) AS percent_redlight,
   100*SUM(disability)/SUM(sum_of_causes) AS percent_disability,
   100*SUM(speeding)/SUM(sum_of_causes) AS percent_Speeding,
-  100*SUM(pedestrian)/SUM(sum_of_involved) AS percent_pedestrian,
-  100*SUM(cyclist)/SUM(sum_of_involved) AS percent_cyclist,
-  100*SUM(automobile)/SUM(sum_of_involved) AS percent_automobile,
-  100*SUM(motorcycle)/SUM(sum_of_involved) AS percent_motorcycle,
-  100*SUM(truck)/SUM(sum_of_involved) AS percent_truck,
-  100*SUM(trsn_city_veh)/SUM(sum_of_involved) AS percent_Transit_City_Vehicle,
-  100*SUM(emerg_veh)/SUM(sum_of_involved) AS percent_Emerg_Veh,
-  100*SUM(passenger)/SUM(sum_of_involved) AS percent_Passenger
+  100*SUM(pedestrian)/SUM(sum_of_vehicles) AS percent_pedestrian,
+  100*SUM(cyclist)/SUM(sum_of_vehicles) AS percent_cyclist,
+  100*SUM(automobile)/SUM(sum_of_vehicles) AS percent_automobile,
+  100*SUM(motorcycle)/SUM(sum_of_vehicles) AS percent_motorcycle,
+  100*SUM(truck)/SUM(sum_of_vehicles) AS percent_truck,
+  100*SUM(trsn_city_veh)/SUM(sum_of_vehicles) AS percent_Transit_City_Vehicle,
+  100*SUM(emerg_veh)/SUM(sum_of_vehicles) AS percent_Emerg_Veh,
+  100*SUM(passenger)/SUM(sum_of_vehicles) AS percent_Passenger
 
   
 FROM ksi
