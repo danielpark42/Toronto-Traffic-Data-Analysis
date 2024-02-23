@@ -124,6 +124,24 @@ FROM ksi
 GROUP BY date_year
 ORDER BY date_year ASC
 --We can see from this percent breakdown, that aggressive driving and distracted driving by far the biggest cause
---automobiles and pedestrians were the largest
+--Automobiles and pedestrians were the most common accident vehicle type
+
+-- We are interested in the the yearly cyclist accidents to spot trends
+SELECT "year", COUNT(cyclist)
+FROM ksi
+GROUP BY "year"
+ORDER BY "year" ASC;
+
+-- Query total accidents in each neighbourhood
+SELECT neighbourhood_140,COUNT(objectid)
+FROM ksi
+GROUP BY neighbourhood_140
+ORDER BY neighbourhood_140;
+
+-- Query accidents in each neighbourhood, by year
+SELECT neighbourhood_140,"year",COUNT(objectid)
+FROM ksi
+GROUP BY "year", neighbourhood_140
+ORDER BY neighbourhood_140, "year";
 
 
