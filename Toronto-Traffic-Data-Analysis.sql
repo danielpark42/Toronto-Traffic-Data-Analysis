@@ -127,21 +127,3 @@ ORDER BY date_year ASC
 --automobiles and pedestrians were the largest
 
 
---am vs pm accidents; pm = 13202, am = 4992. this means that much more accidents happen in the afternoon. can further explore this by graphing it by hours using tableau
-select count(time) as pm_acc from ksi
-where time not like '0%'
-
-select count(time) as am_acc from ksi
-where time like '0%'
-
-
-SELECT EXTRACT(DOW FROM "date"),
-
-CASE
-	WHEN EXTRACT(DOW FROM "date") = 0 THEN 'Weekend'
-	WHEN EXTRACT(DOW FROM "date") = 6 THEN 'Weekend'
-	WHEN EXTRACT(DOW FROM "date") BETWEEN 1 AND 5 THEN 'Weekday'
-	ELSE 'ERROR'
-END
-
-FROM ksi;
