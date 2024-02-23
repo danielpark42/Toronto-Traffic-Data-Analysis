@@ -6,6 +6,8 @@ This data set is a cleaned version of the Killed or Seriously Injured (KSI) traf
 ## Content
 
 Inside is information for all traffic accidents reported between 2006 and 2022. There is data on the time, location, and the type of incident with various attributes about the traffic conditions at the time of the incident.
+
+The query results and data was used to create a slideshow presentation and visualized with Tableau. The slideshow can be view [here](https://docs.google.com/presentation/d/1DbP9cN3DP0J0jBDgCbgAy5iVWT_CuE8aDMPyW24reRs/edit?usp=sharing).
 ## Acknowledgements
 
 I do not own the data. The dataset was directly downloaded from the City of Toronto Police's Open Data Portal.
