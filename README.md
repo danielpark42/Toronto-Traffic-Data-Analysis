@@ -11,7 +11,8 @@ The query results and data was used to create a slideshow presentation and visua
 ## Acknowledgements
 
 I do not own the data. The dataset was directly downloaded from the City of Toronto Police's Open Data Portal.
-Inspiration
+
+## Inspiration
 
 The inspiration for using this dataset came from living in the City of Toronto for many years, wanting to analyze the data to answer many questions that I ask in my daily life.
 
